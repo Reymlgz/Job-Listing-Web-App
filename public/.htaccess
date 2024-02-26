@@ -1,4 +1,12 @@
+# Enable the rewrite engine
 RewriteEngine on
+
+# Check if the requested file does not exist
 RewriteCond %{REQUEST_FILENAME} !-f
+
+# Check if the requested directory does not exist
 RewriteCond %{REQUEST_FILENAME} !-d
+
+# If both conditions above are met (file doesn't exist and directory doesn't exist),
+# redirect the request to index.php while maintaining the original query string
 RewriteRule ^(.*)$ /index.php [NC,L,QSA]
