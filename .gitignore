@@ -1,0 +1,6 @@
+/vender
+/node_modelues
+/config/db.php
+.env
+.vscode
+.DS_Store
