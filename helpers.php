@@ -3,9 +3,6 @@
  * Get the base path
  * @param string $path
  * @return string
- * 
- * Assuming the current file is located in '/var/www/html/'
- * echo basePath('images'); // Output: '/var/www/html/images'
  *
  */
 function basePath($path = ''){
@@ -28,7 +25,6 @@ function loadView($name) {
         echo "Load-View '{$name} not found!'";
     }
 }
-
 /**
  * Load Partials
  * 
@@ -45,15 +41,12 @@ function loadPartials($name) {
         echo "Load-Partial-View '{$name} not found!'";
     }
 }
-
-
 /** /------Helper Functions to show the path folders ----/
  * Inspect a value(s)
  * 
  * @param mixed $value
  * @return void
  */
-
  function inspect($value){
     echo '<pre>';
     var_dump($value);
