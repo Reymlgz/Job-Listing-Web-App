@@ -1,9 +1,8 @@
 <?= loadPartials('head') ?>
 <?= loadPartials('navbar') ?>
-<?= loadPartials('showcase-search') ?>
-<?= loadPartials('top-banner') ?>
-
-
+<?= loadPartials('top-banner') ?>    
+    
+    
     <!-- Job Listings -->
     <section>
       <div class="container mx-auto p-4 mt-4">
@@ -188,11 +187,6 @@
             </div>
           </div>
         </div>
-        <a href="/listings" class="block text-xl text-center">
-          <i class="fa fa-arrow-alt-circle-right"></i>
-          Show All Jobs
-        </a>
-      </section>
 
     <?= loadPartials('bottom-banner');?>
 
