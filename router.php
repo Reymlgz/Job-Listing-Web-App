@@ -4,7 +4,7 @@ class Router {
     protected $routes = [];
 
     public function registerRoute($method, $uri, $controller){
-        $this->routes = [
+        $this->routes[] = [
             'method' => $method,
             'uri' => $uri,
             'controller' => $controller
@@ -60,6 +60,18 @@ class Router {
      }
 
      /**
+      * Load Error Page
+      * @param int $httpCode
+      * @return void
+      */
+
+    public function error($httpCode = 404) {
+        http_response_code($httpCode);
+        loadView("error/{$httpCode}");
+        exit;
+    }
+
+     /**
       * Route the request 
       * 
       * @param string $uri
@@ -68,16 +80,15 @@ class Router {
       * 
       */
 
-    public function route($uri, $method){
+    public function route($uri, $method) {
         foreach($this->routes as $route) {
             if($route['uri'] === $uri && $route['method'] === $method) {
                 require basePath($route['controller']);
                 return;
             }
         }
-        http_response_code(404);
-        loadView('error/404');
-        exit;
+
+        $this->error();
     }
 }     
 
