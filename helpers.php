@@ -23,7 +23,7 @@ function loadView($name, $data = []) {
         extract($data);
         require $viewPath;
     } else {
-        echo "Load-View '{$name} not found!'";
+        echo "View '{$name} not found!'";
     }
 }
 /**
@@ -78,4 +78,6 @@ function loadPartials($name) {
  function formatSalary($salary) {
     return '$' . number_format(floatval($salary));
  }
+
+ 
 ?>

@@ -21,28 +21,31 @@ class Database {
             $this->conn = new PDO($dsn, $config['username'], $config['password'], $options);
 
         } catch (PDOException $e) {
-            throw new Exception("Database connection failed: " . $e->getMessage());
-            
+            throw new Exception("Database connection failed: . {$e->getMessage()}");      
         }
     }
-
     /**
      * Query the database
      * 
-     * @param string $query
+     *  @param string $query The SQL query to execute
      * 
-     * @return PDOstatement
-     * @throws PDOException 
+     * @return PDOStatement The PDO statement object.
+     * @throws PDOException If query execution fails.
      */
 
-     public function query($query) {
+     public function query($query, $params = []) {
          try {
             $sth = $this->conn->prepare($query);
+            
+            //Bind named parameters
+            foreach ($params as $param => $value) {
+                $sth->bindValue(':'.$param, $value);
+            }
+            
             $sth->execute();
             return $sth;
          } catch (PDOException $e) {
-            throw new Exception("Query failed to execute:  . {$e->getMessage()}");
-
+            throw new Exception("Query failed to execute: {$e->getMessage()}");
          }
      }
 }

@@ -1,6 +1,6 @@
 <?= loadPartials('head') ?>
 <?= loadPartials('navbar') ?>
-
+<?= loadPartials('top-banner') ?>  
 
 
 <section>
@@ -12,4 +12,5 @@
       </div>
 </section>
 
+<?= loadPartials('bottom-banner');?>
 <?= loadPartials('footer');?>
