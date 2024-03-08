@@ -1,0 +1,16 @@
+{
+"name": "reymlgz/job-listings",
+"description": "Job-Listing-Web-App",
+"authors": [
+    {
+        "name": "Rey Molina",
+        "email": "app@gmail.com"
+    }
+],
+"autoload": {
+    "psr-4": {
+        "Framework\\": "Framework/",
+        "App\\": "App/"
+    }
+}
+}
