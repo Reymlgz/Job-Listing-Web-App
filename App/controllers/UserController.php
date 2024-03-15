@@ -79,7 +79,7 @@ class UserController {
                 ]);
                 exit;
         }
-        //Check if emaiol already exists
+        //Check if email already exists
 
         $params = [
             'email' => $email
@@ -137,4 +137,68 @@ class UserController {
 
         redirect('/');
     }
+
+    /**
+     * Authenticate a user with email and password
+     * 
+     * @return void
+     */
+    public function authenticate(){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $errors = [];
+
+        //Validation
+        if(!Validation::email($email)){
+            $errors['email'] = 'Please provide a valid email';
+        }
+
+        if(!Validation::string($password, 6, 50)){
+            $errors['password'] = 'Password must be at least 6 characters';
+        }
+
+        //Check for errors
+        if(!empty($errors)) {
+            loadView('users/login', [
+                'errors' => $errors,
+            ]);
+            exit;
+        }
+
+        //Check if email exists
+        $params = [
+            'email' => $email
+        ];
+
+        $user = $this->db->query('SELECT * FROM users WHERE email = :email', $params)->fetch();
+
+        if(!$user) {
+            $erros['email'] = 'Email does not exist';
+            loadView('users/login', [
+                'errors' => $errors,
+            ]);
+            exit;
+        }
+
+        //Check if password matches 
+        if(!password_verify($password, $user->password)){
+            $errors['email'] = 'Incorrect password';
+            loadView('users/login', [
+                'errors' => $errors,
+            ]);
+            exit;
+        }
+
+        // Set user session
+        Session::set('user', [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'city' => $user->city,
+            'state' => $user->state,
+        ]);
+        redirect('/');
+    }
+
 }

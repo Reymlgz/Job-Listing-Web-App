@@ -8,8 +8,8 @@ class Validation {
      * Validate a string
      * 
      * @param string $value
-     * @param ini $min
-     * @param int $max
+     * @param int $min
+     * @param int $max ("INF" is a constant that represents infinity)
      * @return bool
      */
 
@@ -17,6 +17,8 @@ class Validation {
         if(is_string($value)){
             $value = trim($value);
             $length = strlen($value);
+
+            //Check if the length of the variable is between the min and max.
             return $length >= $min && $length <= $max;
         }
 
