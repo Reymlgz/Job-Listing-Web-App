@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Framework\Database;
 use Framework\Validation;
+use Framework\Session;
 
 
 class UserController {
@@ -66,9 +67,6 @@ class UserController {
             $errors['password_confirmation'] = 'Passwords do not match';
         }
 
-
-
-
         if(!empty($errors)) {
             loadView('users/create', [
                 'errors' => $errors,
@@ -107,7 +105,35 @@ class UserController {
             'password' => password_hash($password, PASSWORD_DEFAULT),
         ];
 
+
         $this->db->query('INSERT INTO users (name, email, city, state, password) VALUES (:name, :email, :city, :state, :password)', $params);
+
+
+        //Get new User ID
+
+        $userID = $this->db->conn->lastInsertId();
+        Session::set('user', [
+            'id' => $userID,
+            'name' => $name,
+            'email' => $email,
+            'city' => $city,
+            'state' => $state,
+
+        ]);  
+
+        redirect('/');
+    }
+
+    /**
+     * Logout a user and kill session
+     * 
+     * @return void
+     */
+    public function logout(){
+        Session::clearAll();
+
+        $params = session_get_cookie_params();
+        setcookie('PHPSESSID', '', time() - 86400, $params['path'], $params['domain']);
 
         redirect('/');
     }
